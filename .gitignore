@@ -1,0 +1,82 @@
+# =========================================
+# 🐍 Python / Django Gitignore
+# =========================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# VS Code
+.vscode/
+
+# Django specific
+*.log
+db.sqlite3
+media/
+staticfiles/
+static_cdn/
+local_settings.py
+
+# Environment & config files
+.env
+.env.*
+*.env
+*.bak
+*.ini
+*.cfg
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Migrations cache (only remove if you want to auto-generate)
+*/migrations/__pycache__/
+*/migrations/*.pyc
+
+# JetBrains (PyCharm)
+.idea/
+
+# =========================================
+# ✅ Custom for Carlens Project
+# =========================================
+# Local images and uploads
+car_images/
+uploads/
+temp/
+
+# =========================================
+# ✅ Node/npm (if frontend connected)
+# =========================================
+node_modules/
+package-lock.json
+
+# =========================================
+# ✅ Build and dist
+# =========================================
+build/
+dist/
+*.egg-info/
