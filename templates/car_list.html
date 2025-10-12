@@ -1,40 +1,49 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2 class="text-center mb-4">Mavjud Mashinalar</h2>
-<hr>
+<div class="container my-5">
+    <h2 class="text-center fw-bold mb-4">🚗 Mavjud Mashinalar</h2>
+    <hr class="mb-5" style="width: 120px; margin: auto; border: 2px solid #007bff;">
 
-{% if cars %}
-<div class="row g-4">
-    {% for car in cars %}
-    <div class="col-md-4">
-        <div class="car-card">
-            {% if car.image %}
-            <img src="{{ car.image.url }}" alt="{{ car.name }}" class="w-100 car-img">
-            {% else %}
-            <img src="https://via.placeholder.com/400x200?text=No+Image" alt="No image" class="w-100 car-img">
-            {% endif %}
+    {% if cars %}
+    <div class="row g-4">
+        {% for car in cars %}
+        <div class="col-md-4">
+            <div class="car-card shadow-sm">
+                {% if car.image %}
+                <img src="{{ car.image.url }}" alt="{{ car.name }}" class="car-img">
+                {% else %}
+                <img src="https://via.placeholder.com/400x200?text=No+Image" alt="No image" class="car-img">
+                {% endif %}
 
-            <div class="p-3">
-                <h5 class="mb-2">{{ car.name }}</h5>
-                <p class="text-muted small mb-1">{{ car.category.name }}</p>
-                <p class="price mb-1">{{ car.price }} so‘m</p>
-                <p class="text-secondary small mb-2">{{ car.year }} | {{ car.engine }} | {{ car.color }}</p>
-                <p class="mb-2">{{ car.description|truncatechars:100 }}</p>
+                <div class="car-body p-3">
+                    <h5 class="car-title mb-2 fw-semibold">{{ car.name }}</h5>
+                    <span class="badge bg-light text-dark mb-2">{{ car.category.name }}</span>
 
-                <div class="d-flex justify-content-between align-items-center">
-                    
-                    <small class="text-muted">{{ car.created_at|date:"d M, Y" }}</small>
+                    <p class="price mb-1 fw-bold text-primary">{{ car.price|floatformat:0 }} so‘m</p>
+
+                    <div class="car-details text-secondary small mb-2">
+                        <i class="bi bi-calendar-event"></i> {{ car.year }} &nbsp;|&nbsp;
+                        <i class="bi bi-gear"></i> {{ car.engine }} &nbsp;|&nbsp;
+                        <i class="bi bi-palette"></i> {{ car.color }}
+                    </div>
+
+                    <p class="text-muted small">{{ car.description|truncatechars:100 }}</p>
+
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <small class="text-muted">{{ car.created_at|date:"d M, Y" }}</small>
+                        <a href="#" class="btn btn-outline-primary btn-sm">Batafsil</a>
+                    </div>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
-{% else %}
+    {% else %}
     <div class="text-center mt-5">
-        <p class="text-muted">🚘 Hozircha mashinalar mavjud emas.</p>
+        <p class="text-muted fs-5">🚘 Hozircha mashinalar mavjud emas.</p>
     </div>
-{% endif %}
+    {% endif %}
+</div>
 
 {% endblock %}
