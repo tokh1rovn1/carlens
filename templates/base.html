@@ -1,166 +1,156 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carlens</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Carlens{% endblock %}</title>
 
-  <!-- Bootstrap & Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-  <style>
-    body {
-      background: #f4f6fa;
-      font-family: 'Inter', sans-serif;
-      color: #333;
-      scroll-behavior: smooth;
-    }
+    <style>
+        :root {
+            --bg-light: #f8f9fa;
+            --text-light: #212529;
+            --bg-dark: #121212;
+            --text-dark: #f1f1f1;
+            --accent: #007aff;
+            --card-bg-light: #ffffff;
+            --card-bg-dark: #1e1e1e;
+        }
 
-    /* ===== Navbar ===== */
-    .navbar {
-      background: linear-gradient(90deg, #2a5298, #1e3c72);
-      padding: 0.9rem 0;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Roboto", sans-serif;
+            transition: background 0.3s, color 0.3s;
+        }
 
-    .navbar-brand {
-      font-weight: 700;
-      font-size: 1.6rem;
-      letter-spacing: 0.5px;
-      color: #fff !important;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
 
-    .navbar-brand:hover {
-      color: #e3f2fd !important;
-      transform: scale(1.03);
-      transition: 0.3s;
-    }
+        nav {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.7);
+            transition: background 0.3s ease;
+        }
 
-    .add-btn {
-      background: #fff;
-      color: #2a5298;
-      padding: 8px 16px;
-      border-radius: 25px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
+        body.dark-mode nav {
+            background: rgba(0, 0, 0, 0.5);
+        }
 
-    .add-btn:hover {
-      background: #e3f2fd;
-      color: #1e3c72;
-      transform: translateY(-2px);
-    }
+        .nav-link {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
 
-    /* ===== Car Cards ===== */
-    .car-card {
-      background: #fff;
-      border-radius: 15px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      border: none;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    }
+        .nav-link:hover {
+            color: var(--accent);
+        }
 
-    .car-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    }
+        .theme-toggle {
+            border: none;
+            background: transparent;
+            color: var(--accent);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
 
-    .car-img {
-      width: 100%;
-      height: 230px;
-      object-fit: cover;
-      border-bottom: 1px solid #eee;
-    }
+        .theme-toggle:hover {
+            transform: rotate(20deg);
+        }
 
-    .price {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #1e3c72;
-    }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
 
-    /* ===== Footer ===== */
-    footer {
-      background: linear-gradient(90deg, #1e3c72, #2a5298);
-      color: white;
-      text-align: center;
-      padding: 25px 0;
-      margin-top: 60px;
-      position: relative;
-    }
-
-    footer p {
-      margin: 0;
-      font-size: 0.95rem;
-      opacity: 0.9;
-    }
-
-    footer .social-links a {
-      color: #fff;
-      margin: 0 8px;
-      font-size: 1.2rem;
-      transition: 0.3s;
-    }
-
-    footer .social-links a:hover {
-      color: #e3f2fd;
-      transform: scale(1.2);
-    }
-
-    /* ===== Animation ===== */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .fade-up {
-      animation: fadeInUp 0.6s ease;
-    }
-  </style>
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="{% url 'car_list' %}">Carlens</a>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container d-flex justify-content-between align-items-center">
-      <a class="navbar-brand" href="{% url 'car_list' %}">
-        🚗 Carlens
-      </a>
-      <a href="{% url 'car_create' %}" class="add-btn">
-        <i class="bi bi-plus-circle"></i> Mashina qo‘shish
-      </a>
-    </div>
-  </nav>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-  <!-- Content -->
-  <main class="container fade-up my-5">
-    {% block content %}{% endblock %}
-  </main>
+            <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+                <ul class="navbar-nav align-items-center gap-3">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <span class="nav-link">Salom, <strong>{{ user.username }}</strong> 👋</span>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link"><a href="{% url 'car_create' %}">+Qo'shish</a></span>
+                        </li>
+                        <li class="nav-item">
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button class="btn btn-outline-danger btn-sm" type="submit">Chiqish</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Kirish</a></li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <button id="theme-toggle" class="theme-toggle">
+                            <i class="bi bi-brightness-high-fill" id="theme-icon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="social-links mb-2">
-        <a href="#"><i class="bi bi-facebook"></i></a>
-        <a href="#"><i class="bi bi-instagram"></i></a>
-        <a href="#"><i class="bi bi-telegram"></i></a>
-        <a href="#"><i class="bi bi-github"></i></a>
-      </div>
-      <p>© 2025 Carlens — Barcha huquqlar himoyalangan.</p>
-    </div>
-  </footer>
+    <!-- Content -->
+    <main class="container" style="padding-top: 90px;">
+        {% block content %}
+        {% endblock %}
+    </main>
 
+    <footer>
+        <p>© 2025 Carlens. Barcha huquqlar himoyalangan.</p>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById("theme-toggle");
+        const body = document.body;
+        const icon = document.getElementById("theme-icon");
+
+        // Foydalanuvchi tanlovini saqlash
+        if (localStorage.getItem("theme") === "dark") {
+            body.classList.add("dark-mode");
+            icon.classList.replace("bi-brightness-high-fill", "bi-moon-stars-fill");
+        }
+
+        themeToggle.addEventListener("click", () => {
+            body.classList.toggle("dark-mode");
+
+            if (body.classList.contains("dark-mode")) {
+                icon.classList.replace("bi-brightness-high-fill", "bi-moon-stars-fill");
+                localStorage.setItem("theme", "dark");
+            } else {
+                icon.classList.replace("bi-moon-stars-fill", "bi-brightness-high-fill");
+                localStorage.setItem("theme", "light");
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

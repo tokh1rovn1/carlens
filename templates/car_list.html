@@ -1,49 +1,103 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container my-5">
-    <h2 class="text-center fw-bold mb-4">🚗 Mavjud Mashinalar</h2>
-    <hr class="mb-5" style="width: 120px; margin: auto; border: 2px solid #007bff;">
+<div class="container">
+  <h2 class="text-center fw-bold mb-4">🚗 Mavjud Mashinalar</h2>
+  <hr class="mb-5" style="width:120px;margin:auto;border:2px solid #2a5298;">
 
-    {% if cars %}
-    <div class="row g-4">
-        {% for car in cars %}
-        <div class="col-md-4">
-            <div class="car-card shadow-sm">
-                {% if car.image %}
-                <img src="{{ car.image.url }}" alt="{{ car.name }}" class="car-img">
-                {% else %}
-                <img src="https://via.placeholder.com/400x200?text=No+Image" alt="No image" class="car-img">
-                {% endif %}
-
-                <div class="car-body p-3">
-                    <h5 class="car-title mb-2 fw-semibold">{{ car.name }}</h5>
-                    <span class="badge bg-light text-dark mb-2">{{ car.category.name }}</span>
-
-                    <p class="price mb-1 fw-bold text-primary">{{ car.price|floatformat:0 }} so‘m</p>
-
-                    <div class="car-details text-secondary small mb-2">
-                        <i class="bi bi-calendar-event"></i> {{ car.year }} &nbsp;|&nbsp;
-                        <i class="bi bi-gear"></i> {{ car.engine }} &nbsp;|&nbsp;
-                        <i class="bi bi-palette"></i> {{ car.color }}
-                    </div>
-
-                    <p class="text-muted small">{{ car.description|truncatechars:100 }}</p>
-
-                    <div class="d-flex justify-content-between align-items-center mt-3">
-                        <small class="text-muted">{{ car.created_at|date:"d M, Y" }}</small>
-                        <a href="#" class="btn btn-outline-primary btn-sm">Batafsil</a>
-                    </div>
-                </div>
-            </div>
+  {% if cars %}
+  <div class="row g-4">
+    {% for car in cars %}
+    <div class="col-md-4 col-sm-6">
+      <div class="car-card text-center p-3">
+        <div class="car-img-container">
+          {% if car.image %}
+          <img src="{{ car.image.url }}" alt="{{ car.name }}" class="car-img">
+          {% else %}
+          <img src="https://via.placeholder.com/400x250?text=No+Image" alt="No image" class="car-img">
+          {% endif %}
         </div>
-        {% endfor %}
+
+        <div class="car-info mt-3">
+          <h5 class="fw-semibold mb-1 text-dark">{{ car.name }}</h5>
+          <span class="badge bg-light text-dark mb-2"><i class="bi bi-tags"></i> {{ car.category.name }}</span>
+          <p class="price mb-1 fw-bold text-primary">{{ car.price|floatformat:0 }} so‘m</p>
+
+          <div class="text-secondary small mb-2">
+            <i class="bi bi-calendar"></i> {{ car.year }} &nbsp;|&nbsp;
+            <i class="bi bi-gear"></i> {{ car.engine }} &nbsp;|&nbsp;
+            <i class="bi bi-palette"></i> {{ car.color }}
+          </div>
+
+          <p class="text-muted small">{{ car.description|truncatechars:90 }}</p>
+
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <small class="text-muted"><i class="bi bi-clock"></i> {{ car.created_at|date:"d M, Y" }}</small>
+            <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+              <i class="bi bi-eye"></i> Batafsil
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-    {% else %}
-    <div class="text-center mt-5">
-        <p class="text-muted fs-5">🚘 Hozircha mashinalar mavjud emas.</p>
-    </div>
-    {% endif %}
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="text-center mt-5">
+    <p class="text-muted fs-5"><i class="bi bi-exclamation-circle"></i> Hozircha mashinalar mavjud emas.</p>
+  </div>
+  {% endif %}
 </div>
+
+<style>
+  /* Apple minimal style for cards */
+  .car-card {
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+  }
+
+  .car-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .car-img-container {
+    width: 100%;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 15px;
+    background: #f9fafb;
+  }
+
+  .car-img {
+    width: 400px;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+    transition: transform 0.4s ease;
+  }
+
+  .car-card:hover .car-img {
+    transform: scale(1.05);
+  }
+
+  .price {
+    font-size: 1.05rem;
+    color: #1e3c72;
+  }
+
+  .badge {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
+</style>
 
 {% endblock %}
