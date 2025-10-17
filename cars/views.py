@@ -17,4 +17,10 @@ class CarCreateView(CreateView):
     success_url = reverse_lazy('car_list')
 
 
+class CarDetailView(DetailView):
+    model = Car
+    template_name = 'car_detail.html'
+    context_object_name = 'car'
+
+
 
